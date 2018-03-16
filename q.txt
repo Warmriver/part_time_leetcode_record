@@ -1,0 +1,81 @@
+第一道：
+ 矩阵
+
+给出一个矩阵由0和1组成，对每一个元素找出离他最近的0的距离，两个相邻元素的距离为1
+
+例子1:
+input：
+    0 0 0
+    0 1 0
+    0 0 0
+output：
+    0 0 0
+    0 1 0
+    0 0 0
+例子2:
+input：
+    0 0 0
+    0 1 0
+    1 1 1
+output：
+    0 0 0
+    0 1 0
+    1 2 1
+
+解法：
+r = 行数； c = 列数
+ 1. 求职者可能最先想到的方法，遍历各个元素，暴力求解，
+ 这种方法的时间复杂度为o((r*c)**2),即对每一个值为1的元素遍历整个矩阵，空间复杂度为O(r*c)
+
+ 2.如果求职者给出解法1，那么需要引导其得出更小时间复杂度的算法。例如，第二种算法，为dp，即动态规划，
+   对于每个元素，只要求他临近的元素的距0最小距离即可，时间复杂度降为(r*c)
+ 3.或其他算法，例如bfs等
+
+
+ 第二道：
+    C(n) = 2/n∑(上标n-1,下标0)C(i) + n;
+    用代码表示以上方程（考察一定数学能力，抽象思维，对递归的敏感和优化的理解）
+    解法1:
+        public static double eval(int n){
+            if(n == 0) {
+                return 1.0;
+            }
+            else{
+                double sum = 0.0;
+                for(int i = 0; i < n; i++){
+                    sum += eval(i);
+                }
+                return 2.0 * sum /n + n
+            }
+        }
+    以上算法会使得递归做了很多重复工作，可以说，n的数值稍大，就会溢出，类似没有使用动态规划的递归斐波纳切解法
+
+    解法2:
+        用一张表记录冗杂计算
+        public static double eval(int n ){
+            double[] c = new double[n+1];
+            c[0] = 1.0;
+            for(int i = 1; i <=n; i ++){
+                double sum = 0.0;
+                for(int j = 0; j < i; j ++){
+                    sum += c[j];
+                }
+            }
+            return c[n];
+        }
+
+
+难些的题目：
+第三道：
+‘.’ 匹配任意一个字符
+'*' 匹配0个或者更多前一个字符
+
+isMatch("aa","a") → false
+isMatch("aa","aa") → true
+isMatch("aaa","aa") → false
+isMatch("aa", "a*") → true
+isMatch("aa", ".*") → true
+isMatch("ab", ".*") → true
+isMatch("aab", "c*a*b") → true
+
+第四道：
