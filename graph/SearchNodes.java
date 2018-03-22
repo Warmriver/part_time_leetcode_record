@@ -6,6 +6,8 @@ import java.util.Stack;
 
 /**
  * bfs vs. dfs
+ * 
+ * 寻找节点，深度优先和广度优先的例子比较，前者用递归，后者用队列
  */
 
 public class SearchNodes{
