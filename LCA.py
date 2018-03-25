@@ -1,4 +1,16 @@
 # find the common largest ancestors of two nodes in a tree. -- a q in microsoft interview
+"""
+        1
+      /   \
+    3      2
+  /  \      
+4     6
+     /   
+    5
+
+4 and 5 最近的祖先是3，需要输出3。 需要在遍历是记录路径，然后匹配即可
+"""
+
 
 class Solution:
     def lca(self, root, target_1, target_2):
