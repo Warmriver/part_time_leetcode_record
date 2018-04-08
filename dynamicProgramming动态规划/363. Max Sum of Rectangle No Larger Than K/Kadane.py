@@ -1,5 +1,5 @@
 from functools import reduce
-
+# kadane算法，最优子序列
 class Solution:
     dict = {}
     def maxSubset(self, end_index, last_max_num, nums):
@@ -18,6 +18,6 @@ class Solution:
 
 if __name__ == '__main__':
     s = Solution()
-    nums = [1,-2,-3,5,1,3]
+    nums = [1,-2,-3,5,1,-10, 3]
     s.maxSubset(0,[nums[0]], nums)
     print(s.dict)
