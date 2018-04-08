@@ -5,6 +5,7 @@
 在list中，2+7 = 9， 那么应该输出 [1, 2]，对应第0为和第一位数字
 
 """
+# 这个方法速度超过了100%的python答案
 class Solution:
     def twoSum(self, list, target):
         """
