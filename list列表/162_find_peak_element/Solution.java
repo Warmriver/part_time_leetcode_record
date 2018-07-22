@@ -48,6 +48,7 @@ class Solution {
     }
 
     public static void main(String[] args) {
+        System.out.println(args[0]);
         int[] nums = {1,2,3,4,5,10,3,2,1};
         int result = findPeakElement_2(nums);
         System.out.println(result);
