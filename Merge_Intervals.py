@@ -1,16 +1,10 @@
 import copy
 
 class Solution:
+    # 排序的方法
     def merge(self, intervals):
         merged = []
         intervals.sort(key = lambda x:x.start)
-        #practice : what if sort by end
-        # intervals.sort(key = lambda x:x.end)
-        #  for interval in intervals:
-        #     if not merged or merged[-1][1] < interval.start:
-        #         merged.append([interval.start, interval.end])
-        #     else:
-        #         merged[-1][1] = max(merged[-1][1], interval.end)
         for interval in intervals:
             if not merged or merged[-1][1] < interval.start:
                 merged.append([interval.start, interval.end])
@@ -18,7 +12,7 @@ class Solution:
                 merged[-1][1] = max(merged[-1][1], interval.end)
         return merged
 
-
+    # 不排序的方法
     def merge_d(self, intervals):
         """
         :type intervals: List[Interval]
@@ -31,39 +25,35 @@ class Solution:
             if not ret:
                 ret.append([interval.start, interval.end])
                 continue
-            if self.is_intersected(ret[-1], [interval.start, interval.end]):
-                self.overlap(ret, [interval.start, interval.end])
-            else:
-                ret.append([interval.start, interval.end])
+            self.add_or_overlap(ret, [interval.start, interval.end])
         return ret
+    
+    # 集合是否有重合
     def is_intersected(self, m, n):
         '''
         :rtype: bool
         '''
         return max(m[1], n[1]) - min(m[0], n[0]) <= m[1] - m[0] + n[1] - n[0]
-    def overlap(self, ret, n):
+    
+    # 添加新的集合
+    def add_or_overlap(self, ret, n):
         '''
         :rtype: [start, end]
         '''
-        last = [min(ret[-1][0], n[0]), max(ret[-1][1], n[1])]
-        ret[-1] = last
-        list.reverse(ret)
-        # for index,item in enumerate(ret):
-        index = len(ret) - 1
+        ret.append(n)
+        index = len(ret) - 2
+        # 对于每个新集合的添加都要遍历整个列表，因为没有排序，所以时间复杂度上升到n的n次方
         while index >= 0:
-            if index == len(ret) - 1:
-                index = index - 1
-                continue
-            if self.is_intersected(ret[index], last):
-                temp = copy.copy(last)
-                last = self.two_overlap(ret[index], last)
-                ret.remove(temp)
-                ret[-1] = last
-                index = index + 1
+            if self.is_intersected(ret[index], n):
+                new_n = self.two_overlap(ret[index], n)
+                ret[-1] = new_n
+                ret.remove(ret[index])
             index = index - 1
-        list.reverse(ret) 
+
+    # 返回并集合
     def two_overlap(self, m, n):
         return [min(m[0], n[0]), max(m[1], n[1])]
+
 class Interval:
     def __init__(self, s=0, e=0):
         self.start = s
@@ -83,9 +73,17 @@ if __name__ == '__main__':
     # i4 = Interval(15,18)
 
     materials = [i1,i2,i3,i4,i5]
-    # materials = [i1,i2,i3,i4]
     ret = s.merge(materials)
     print(ret)       
+
+    j1 = Interval(2,3)
+    j2 = Interval(-10,-5)
+    #j3 = Interval(5,7)
+    j4 = Interval(1,10)
+    j5 = Interval(1,10)
+    n = [j1,j2,j4,j5]
+    print(s.merge_d(n))
+    print(s.merge(n))
 
     '''
 [[2,3],[4,5],[6,7],[8,9],[1,10]]

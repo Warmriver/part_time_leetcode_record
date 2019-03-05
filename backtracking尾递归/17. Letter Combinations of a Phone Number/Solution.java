@@ -19,15 +19,12 @@ class Solution{
         return ret;
     }
 
+    // 空间上3(0)+3(1)+...+3(n-1)? 时间复杂度为3的n次方？
     private void combination(String buffer, String digits, int offset, List<String> ret){
         if(offset >= digits.length()){
             ret.add(buffer);
             return;
         }
-        Character a = digits.charAt(offset);
-        System.out.println(a);
-        Character b = a - '0';
-        System.out.println(b);
         String letters = KEYS[(digits.charAt(offset) - '0')];
         for ( int i = 0 ; i < letters.length(); i++){
             combination(buffer + letters.charAt(i), digits, offset + 1, ret);
