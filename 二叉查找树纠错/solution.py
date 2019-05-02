@@ -26,7 +26,7 @@ class Solution:
 
     def fix(self, root):
         cur = root
-        self.curNode = cur
+        self.curNode = TreeNode(-sys.maxsize)
         self.mid_traversal(cur)
         temp = self.firstNode.val
         self.firstNode.val = self.secondNode.val
@@ -36,25 +36,25 @@ class Solution:
         if not root:
             return
         self.mid_traversal(root.left)
-        if self.firstNode and self.curNode.val > root.val:
-            self.secondNode = root
+
+        # 找到升序数列的错误点
         if not self.firstNode and self.curNode.val > root.val:
             self.firstNode = self.curNode
+        if self.firstNode and self.curNode.val > root.val:
+            self.secondNode = root
         self.curNode = root
+
         self.mid_traversal(root.right)
     
 if __name__ == "__main__":
     s = Solution()
-    n7 = TreeNode(7)
-    n3 = TreeNode(3)
-    root = TreeNode(4)
-    n5 = TreeNode(5)
+    root = TreeNode(3)
     n1 = TreeNode(1)
-    root.left = n3
-    n3.left = n7
-    n1.left = n5
-    root.right = n1
-
+    n4 = TreeNode(4)
+    n2 = TreeNode(2)
+    root.left = n1
+    root.right = n4
+    n4.left = n2
     s.fix(root)
-    print(n7.val)
-    print(n1.val)
+    print(root.val)
+    print(n2.val)
