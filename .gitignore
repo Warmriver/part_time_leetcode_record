@@ -2,3 +2,4 @@
 .idea/
 *.class
 delete/
+__pycache__/
