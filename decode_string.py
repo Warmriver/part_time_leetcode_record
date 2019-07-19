@@ -14,7 +14,7 @@ s = "3[a2[c]]", return "accaccacc".
 s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 """
 
-
+# 利用栈结构的先入后出的特性，来适配括号的成立规则
 class Solution(object):
     def decode_string_copy(self, s: "str") -> "str":
         stack = []
@@ -32,9 +32,6 @@ class Solution(object):
             else:
                 stack[-1][0] += c
         return stack[0][0]
-
-
-
 
 
 if __name__ == '__main__':

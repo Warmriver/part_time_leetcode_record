@@ -3,3 +3,5 @@
 *.class
 delete/
 __pycache__/
+todo
+leetcode/
